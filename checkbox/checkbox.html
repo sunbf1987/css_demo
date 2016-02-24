@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>checkbox复选框</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style type="text/css">
+	*{ margin:0; padding:0; box-sizing:border-box;}
+	body{ background:#333; line-height:1; padding:50px 0 100px;}
+    h2{ text-align:center; font:30px/1.5 Arial; margin-top:50px; text-shadow:1px 1px 0 rgba(255,255,255,.5);}
+    /**CSS3自定义checkbox复选框DEMO演示**/
+	.demo{ padding:20px 0; text-align:center;}
+	section{ display:inline-block; border:1px solid gray; width:100px; height:100px; background:#555; text-align:center; border-radius:5px; box-shadow:0 1px 4px rgba(0,0,0,.3), 0 0 40px rgba(0,0,0,.1) inset;}
+	.item{ background:#333; margin:20px auto; position:relative; border-radius:50px; box-shadow:inset 0 1px 1px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.2);}
+	.item input,.item1 input{visibility:hidden;}
+	.item label{ position:absolute; border-radius:50px; background:#fcfff4; background:linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%); box-shadow:0 2px 5px 0 rgba(0,0,0,.3); transition:all .4s ease; cursor:pointer;}
+	/*one*/
+	.slideone{ width:50px; height:10px;}
+	.slideone label{top:-3px; left:-3px; width:16px; height:16px;}
+	.slideone input[type=checkbox]:checked + label{ left:37px;}
+	/*two*/
+	.slidetwo{ width:80px; height:30px;}
+	.slidetwo:after{ position:absolute; top:14px; left:14px; background:#111; width:52px; height:2px; content:''; border-radius:50px; box-shadow:inset 0 1px 1px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.2);}
+	.slidetwo label{top:4px; left:4px; width:22px; height:22px; z-index:1}
+	.slidetwo label:after{ position:absolute; top:6px; left:6px; width:10px; height:10px; border-radius:50px; content:''; background:#333; box-shadow:inset 0 1px 1px black, 0 1px 0 rgba(255,255,255,.9)}
+	.slidetwo input[type="checkbox"]:checked + label{ left:54px;}
+	.slidetwo input[type=checkbox]:checked + label:after{ background:#00bf00;}
+	/*slidethree*/
+	.slidethree{ width:80px; height:26px;}
+	.slidethree:after{ content:'OFF'; position:absolute; right:10px; color:#000; font:12px/26px Arial, sans-serif; font-weight:700; text-shadow:1px 1px 0 rgba(255,255,255,.15);}
+	.slidethree:before{ content:'ON'; position:absolute; left:10px; color:#00bf00; font:12px/26px Arial, sans-serif; font-weight:700; }
+	.slidethree label{ width:34px; height:20px; left:3px; top:3px; z-index:5;}
+	.slidethree input[type="checkbox"]:checked + label{ left:43px;}
+	/*roundedone*/
+	.item1{ position:relative; margin:20px auto; background:#fcfff4; background:linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%); border-radius:50px; box-shadow:0 1px 1px white, 0 1px 3px rgba(0,0,0,.5);}
+	.item1 label{ width:20px; height:20px; cursor:pointer; position:absolute; left:4px; top:4px; background:linear-gradient(to bottom, #222 0%, #45484d 100%); border-radius:50px; box-shadow:inset 0 1px 1px rgba(0,0,0,.5), 0 1px 0 white;}
+	.item1 label:hover::after{ opacity:.3;}
+	.roundedone,.roundedtwo{ width:28px; height:28px;}
+	.roundedone label::after,.squaredone label:after{ content:''; width:16px; height:16px; position:absolute; top:2px; left:2px; background:#00bf00; background:linear-gradient(to bottom, #00bf00 0%, #009400 100%); opacity:0; border-radius:50px; box-shadow:inset 0 1px 1px white, 0 1px 3px rgba(0,0,0,.5);}
+	.roundedone input[type="checkbox"]:checked + label::after,.roundedtwo input[type="checkbox"]:checked + label::after,.squaredone input[type="checkbox"]:checked + label::after,.squaredtwo input[type="checkbox"]:checked + label::after,.squaredthree input[type="checkbox"]:checked + label::after,.squaredfour input[type="checkbox"]:checked + label::after{ opacity:1;}
+	/*roundedtwo*/
+	.roundedtwo label:after,.squaredtwo label:after,.squaredthree label:after,.squaredfour label:after{ content:''; width:9px; height:5px; position:absolute; top:5px; left:4px; border:3px solid #fcfff4; border-top:none; border-right:none; background:transparent; opacity:0; transform:rotate(-45deg);}
+	/*squaredone*/
+	.squaredone,.squaredtwo{ width:28px; height:28px; border-radius:0;}
+	.squaredone label,.squaredone label:after,.squaredtwo label,.squaredtwo label:after{ border-radius:0;}
+	/*squaredthree*/
+	.squaredthree{ width:20px; background:none; border-radius:0; box-shadow:none;}
+	.squaredthree label{ border-radius:4px; top:0; left:0; box-shadow:inset 0 1px 1px rgba(0,0,0,.5), 0 1px 0 rgba(255,255,255,.4)}
+	/*squaredfour*/
+	.squaredfour{ width:20px; border-radius:4px;}
+	.squaredfour label{ border-radius:0; top:0; left:0; box-shadow:none; background:none;}
+	.squaredfour label:after{ border-color:#333; top:4px;}
+    /**CSS3自定义发光radiobox单选框DEMO演示**/
+    .radio{ margin:30px auto; width:80px;}
+    .radio input{ -webkit-appearance:none; width:24px; height:24px; border-radius:12px; cursor:pointer; display:block; vertical-align:middle; margin:10px; outline:none; box-shadow:hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 1px; background-color:hsla(0,0%,0%,.2); background-image:-webkit-radial-gradient(hsla(200,100%,90%,1) 0%, hsla(200,100%,70%,1) 15%,hsla(200,100%,60%,.3) 28%,hsla(200,100%,30%,0) 70%); background-repeat:no-repeat; -webkit-transition:background-position .15s cubic-bezier(.8,0,1,1), -webkit-transform .25s cubic-bezier(.8,0,1,1);}
+    .radio input,.radio input:active{ background-position:0 24px;}
+    .radio input:checked{ -webkit-transition:background-position .2s .15s cubic-bezier(0,0,.2,1), -webkit-transform .25s cubic-bezier(0,0,.2,1);}
+    .radio input:checked{ background-position:0 0;}
+    .radio input:checked ~ input,.radio input:checked ~ input:active{  background-position:0 -24px;}
+    .radio input:active{ -webkit-transform:scale(1.5); -webkit-transition: -webkit-transform .1s cubic-bezier(0,0,.2,1);}
+    /**CSS3模拟开关**/
+    .switch{ width:300px; height:280px; padding:5px 0; background-color:#9d9d9d; background-image:linear-gradient(#b5b5b5,#cecece,#9d9d9d); border:2px solid #5d5d5d; border-radius:45px; box-shadow:0 5px 10px rgba(0,0,0,.3), inset 0 0 3px #333; position:relative; display:inline-block;}
+    .switch:before{content:'';  background-color:#ededed; background-image:linear-gradient(#e6e6e6,#d5d5d5 49%,#e1e1e1); position:absolute; top:10px; bottom:5px; left:3px; right:3px; border-radius:45px; box-shadow:0 -6px 1px rgba(255,255,255,.65), inset 0 2px 8px #d5d5d5;}
+    .screws{ position:absolute; width:100%; height:100%;}
+    .screw{ width:16px; height:16px; background-color:rgba(0,0,0,.6); background-image:radial-gradient(circle at top center, #fcfcfc, transparent); border:1px solid #999; color:rgba(0,0,0,.85); font:20px/16px "Open sans"; font-weight:bold; text-align:center; position:absolute; left:25px; top:20px; border-radius:50%; box-shadow:0 2px 1px rgba(255,255,255,.5);}
+    .screw:before{content:''; width:100%; height:60%; background-image:-webkit-radial-gradient(center bottom, rgba(255,255,255,.5) 50%, transparent); position:absolute; bottom:0; left:0; border-radius:50%;}
+    .screw:nth-child(2){ left:auto; right:25px;}
+    .screw:nth-child(3),.screw:nth-child(4){ top:auto; bottom:25px;}
+    .screw:nth-child(4){ left:auto; right:25px;}
+    .switch-button-outer{ width:42%; height:66%; margin:17% auto 0; overflow:hidden; position:relative; z-index:1; border-radius:35px;}
+    .switch-button-outer:before{ content:''; background:linear-gradient(#afb3b5 0%, #d5d8d9 100%); width:100%; top:0; left:0; position:absolute; bottom:0; z-index:1; border-radius:30px; box-shadow:0 0 3px rgba(255,255,255,.4);}
+    .switch-button{ height:90%; width:86%; background:linear-gradient(#f3f3f3,#fff); border-radius:30px; overflow:auto; position:relative; top:5%; left:7%; cursor:pointer; box-shadow:0 16px 8px -8px rgba(0,0,0,.33) inset, 0 0 3px rgba(0,0,0,.85); z-index:2;}
+    .switch-button-inner{ width:98%; height:87%; margin:0 1%; background:linear-gradient(#9d9d9d,#dedede,#f0f0f0); position:absolute; bottom:0; border-radius:25px; z-index:3;}
+    .switch-button-inner:before{ content:''; height:16px; width:4px; margin-left:-2px; background-color:rgba(0,0,0,.1);border-bottom:2px solid rgba(255,255,255,.5); position:absolute; top:10px; left:50%; box-shadow:0 1px 2px rgba(0,0,0,.2) inset;}
+    .switch-button-inner:after{ content:''; width:20px; height:20px; border:2px solid rgba(0,0,0,.08); margin-left:-12px; position:absolute; left:50%; bottom:10px; border-radius:50%; box-shadow:0 2px 0 rgba(255,255,255,.7)}
+    .switch.checked .switch-button{ background-image:linear-gradient(#fff,#f3f3f3); box-shadow:0 -3px 8px rgba(255,255,255,.5) inset, 0 -15px 0 rgba(0,0,0,.33) inset, 0 0 3px rgba(0,0,0,.85);}
+    .switch.checked .switch-button:before{ content:''; width:100%; height:20px; margin-left:-50%; background-image:radial-gradient(ellipse at bottom center, rgba(255,255,255,.7), rgba(255,255,255,0) 70%); position:absolute; bottom:0; left:50%;}
+    .switch.checked .switch-button-inner{ background:linear-gradient(#ddd,#dedede,#fff); bottom:auto; top:2px;}
+    .switch.checked .switch-button-inner:before{ height:18px; background-color:rgba(0,191,0,.1); box-shadow:0 1px 2px rgba(0,191,0,.2) inset;}
+    .switch.checked .switch-button-inner:after{ height:16px;}
+    .switch.checked .switch-button-outer:after{ content:''; height:50%; width:80%; background:transparent; position:absolute; top:6%; left:10%; z-index:1; border-radius:20px; box-shadow:0 60px 25px rgba(0,0,0,.35);}
+    /**CSS3模拟ios按钮开关**/
+    .ios-switch{ text-align:center; padding:20px 0;}
+    .ios-switch input{visibility:hidden;}
+    .ios-switch label{ width:60px; height:35px; display:inline-block; background-color:#fafbfa; border-radius:50px; cursor:pointer; position:relative; transition:all .1s ease-in; font-size:1em;}
+    .ios-switch label:before{ content:''; position:absolute; top:2px; left:2px; background-color:#FFFFFF; border-radius:100px; width:31px; height:31px; box-shadow:0 3px 1px rgba(0,0,0,.05), 0 0 1px rgba(0,0,0,.3); transition:all .1s ease-in; z-index:9;}
+    .ios-switch label:after{ content:''; position:absolute; top:0; width:100%; height:100%; left:0; border-radius:100px; box-shadow:inset 0 0 0 0 #eee,0 0 1px rgba(0,0,0,.4); transition:box-shadow .1s ease-in;}
+    .ios-switch input[type="checkbox"]:checked + label:after{ background-color:#4cda60; box-shadow:0 0 1px #4cda60; font-size:1.5em;}
+    .ios-switch input[type="checkbox"]:checked + label:before{ left:28px;}
+    .ios-switch input + label:active{ box-shadow:0 1px 2px rgba(0,0,0,.05), inset 0 1px 3px rgba(0,0,0,.1);}
+    .ios-switch input:active + label:before{ width:37px;}
+    .ios-switch input:checked:active + label:before{ width:37px; left:22px;}
+    .ios-switch input:active + label:after{ box-shadow:inset 0 0 0 20px #eee, 0 0 1px #eee;}
+</style>
+</head>
+<body>
+    <h2>CSS3自定义checkbox复选框</h2>
+    <div class="demo">
+    	<section>
+    		<div class="slideone item">
+    			<input type="checkbox" id="slideOne" name="check">
+    			<label for="slideOne"></label>
+    		</div>
+    	</section>
+    	<section>
+    		<div class="slidetwo item">
+    			<input type="checkbox" id="slideTwo" name="check">
+    			<label for="slideTwo"></label>
+    		</div>
+    	</section>
+    	<section>
+    		<div class="slidethree item">
+    			<input type="checkbox" id="slideThree" name="check">
+    			<label for="slideThree"></label>
+    		</div>
+    	</section>
+    	<section>
+    		<div class="roundedone item1">
+    			<input type="checkbox" id="roundedOne" name="check">
+    			<label for="roundedOne"></label>
+    		</div>
+    	</section>
+    	<section>
+    		<div class="roundedtwo item1">
+    			<input type="checkbox" id="roundedTwo" name="check">
+    			<label for="roundedTwo"></label>
+    		</div>
+    	</section>
+    	<section>
+    		<div class="squaredone item1">
+    			<input type="checkbox" id="squaredOne" name="check">
+    			<label for="squaredOne"></label>
+    		</div>
+    	</section>
+    	<section>
+    		<div class="squaredtwo item1">
+    			<input type="checkbox" id="squaredTwo" name="check">
+    			<label for="squaredTwo"></label>
+    		</div>
+    	</section>
+    	<section>
+    		<div class="squaredthree item1">
+    			<input type="checkbox" id="squaredThree" name="check">
+    			<label for="squaredThree"></label>
+    		</div>
+    	</section>
+    	<section>
+    		<div class="squaredfour item1">
+    			<input type="checkbox" id="squaredFour" name="check">
+    			<label for="squaredFour"></label>
+    		</div>
+    	</section>
+    </div>
+    <h2>CSS3自定义发光radiobox单选框</h2>
+    <div class="demo radio">
+        <input type="radio" name="name" checked>
+        <input type="radio" name="name">
+        <input type="radio" name="name">
+        <input type="radio" name="name">
+        <input type="radio" name="name">
+    </div>
+    <h2>CSS3模拟开关</h2>
+    <div class="demo switchs">
+        <div class="switch">
+            <div class="screws">
+                <span class="screw">*</span>
+                <span class="screw">*</span>
+                <span class="screw">*</span>
+                <span class="screw">*</span>
+            </div>
+            <div class="switch-button-outer">
+                <div class="switch-button">
+                    <div class="switch-button-inner"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="demo switchs">
+        <div class="switch checked">
+            <div class="screws">
+                <span class="screw">*</span>
+                <span class="screw">*</span>
+                <span class="screw">*</span>
+                <span class="screw">*</span>
+            </div>
+            <div class="switch-button-outer">
+                <div class="switch-button">
+                    <div class="switch-button-inner"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2>CSS3模拟ios按钮开关</h2>
+    <div class="demo ios-btn">
+        <div class="ios-switch">
+            <input type="checkbox" name="check" id="iosCheck">
+            <label for="iosCheck"></label>            
+        </div>
+    </div>
+    <div class="demo ios-btn">
+        <div class="ios-switch">
+            <input type="checkbox" name="check" id="iosCheck1" checked>
+            <label for="iosCheck1"></label>            
+        </div>
+    </div>
+</body>
+<script>
+    function Switch(node){
+        this.node = node;
+        this.node.onclick = this.switchClickEventHanlder;
+    };
+    Switch.prototype.switchClickEventHanlder = function(e){
+        e.target = e.target || e.srcElement;
+        if(e.target.className.indexOf('switch-button') < 0) return;
+        if(!this.classList.contains('checked')){ //html5 api classList
+            this.classList.add('checked');
+        }else{
+            this.classList.remove('checked');
+        };
+        this.checked = !this.checked;
+    };
+    var switches = document.querySelectorAll('.switch');
+    if(typeof switches !== 'undefined' && switches.length){
+        for(var i = switches.length-1; i>=0;--i){
+            new Switch(switches[i])
+        }
+    }
+</script>
+</html>
