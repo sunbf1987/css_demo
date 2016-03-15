@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>css3-hover效果</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,800,300' rel='stylesheet' type='text/css'>
+<style type="text/css">
+	*{ margin:0; padding:0;}
+	*,*:after,*:before{ -webkit-box-sizing:border-box; box-sizing:border-box;}
+	.clearfix:before,.clearfix:after{ content:''; display:table;}
+	.clearfix:after{ clear:both;}
+	body{ background-color:#e5e5e5; color:#536d76; font-size:1em; font-weight:400; font-family:'Raleway', Microsoft YaHei, Arial, sans-serif;}
+	a{ color:#4f7f90; text-decoration:none; outline:none;}
+	a:hover,a:focus{ color: #39545e;}
+	img{ border:0 none;}
+	section{ text-align:center; padding:1em;}
+	.codrops-header{ text-align:center; margin:0 auto; padding:4em 1em;}
+	.codrops-header h1{ margin:0; font-weight:700; font-size:2em; line-height:1.3; font-family:Microsoft YaHei;}
+	.codrops-header span{ display:block; font-size:45%; padding:0 0 0.6em 0.1em; font-weight:300; color:#7e959d;}
+	.grid{ overflow:hidden; margin:0; width:100%; text-align:center;}
+	.grid figure{ position:relative; z-index:1; display:inline-block; overflow:hidden; margin:-0.135em; width:33.333%; height:400px; background-color:#3085a3; text-align:center; cursor:pointer;}
+	.grid figure img{ position:relative; display:block; min-height:100%; opacity:.8;}
+	/*effect-lily*/
+	.grid .effect-lily img{ width:-webkit-calc(100% + 50px); width:calc(100% + 50px);/*calc()介绍：http://www.w3cplus.com/css3/how-to-use-css3-calc-function.html*/ opacity:.7; -webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, transform .35s; -webkit-transform:translate3d(-40px,0,0); transform:translate3d(-40px,0,0);}
+	.grid figure figcaption{ padding:2em; color:#fff; text-transform:uppercase; font-size:1.25em; -webkit-backface-visibility:hidden; backface-visibility:hidden;}
+	.grid figure figcaption:after,.grid figure figcaption:before{ pointer-events:none;/*阻止点击事件，http://www.zhangxinxu.com/wordpress/2011/12/css3-pointer-events-none-javascript/*/}
+	.grid figure figcaption,.grid figure a{ position:absolute; top:0; left:0; width:100%; height:100%;}
+	.grid figure h2{ word-spacing:-0.15em; font-weight:300;}
+	.grid figure h2 span{ font-weight:700;}
+	figure.effect-lily figcaption{ top:auto; bottom:0; height:50%; text-align:left}
+	figure.effect-lily h2,figure.effect-lily p{ -webkit-transform:translate3d(0,40px,0); transform:translate3d(0,40px,0);}
+	figure.effect-lily h2{ -webkit-transition:-webkit-transform .35s; transition:transform .35s;}
+	.grid figure p{ letter-spacing:1px; font-size:68.5%;}
+	figure.effect-lily p{ color:rgba(255,255,255,.6); opacity:0; -webkit-transition:opacity .2s, -webkit-transform .35s; transition:opacity .2s, transform .35s;}
+	.grid figure a{ z-index:999; text-indent:200%; white-space:nowrap; font-size:0; opacity:0;}
+	figure.effect-lily:hover img,figure.effect-lily:hover h2,figure.effect-lily:hover p{ -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	figure.effect-lily:hover img,figure.effect-lily:hover p{ opacity:1}
+	figure.effect-lily:hover p{ -webkit-transition-delay:.05s; transition-delay:.05s; -webkit-transition-duration:.35s; transition-duration:.35s;}
+	/*effect-sadie*/
+	figure.effect-sadie h2{ position:absolute; top:50%; left:0; color:#484c61; width:100%; -webkit-transition:-webkit-transform .35s, color .35s; transition:transform .35s, color .35s; -webkit-transform:translate3d(0,-50%,0); transform:translate3d(0,-50%,0);}
+	figure.effect-sadie:hover h2{ -webkit-transform:translate3d(0,-50%,0) translate3d(0,-40px,0); transform:translate3d(0,-50%,0) translate3d(0,-40px,0); color:#fff;}
+	figure.effect-sadie p{ position:absolute; bottom:0; left:0; width:100%; text-align:center; color:#fff; opacity:0; -webkit-transform:translate3d(0,10px,0); transform:translate3d(0,10px,0); padding:2em;}
+	.effect-sadie:hover p,.effect-sadie:hover figcaption:before,.effect-honey:hover figcaption:before,.effect-honey:hover i,figure.effect-layla:hover h2,figure.effect-layla:hover p{ -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);opacity:1;}
+	.effect-sadie figcaption:before{ position:absolute; top:0; left:0; content:''; width:100%; height:100%; background:-webkit-linear-gradient(top,rgba(72,76,97,0) 0%,rgba(72,76,97,.8) 75%); background:linear-gradient(to bottom,rgba(72,76,97,0) 0%, rgba(72,76,97,.8) 75%); -webkit-transform:translate3d(0,50%,0); transform:translate3d(0,50%,0); opacity:0;}
+	.effect-sadie figcaption:before,figure.effect-sadie p{ s-webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, transform .35s;}
+	/*effect-honey*/
+	.grid .effect-honey{ background-color:#4a3753;}
+	figure.effect-honey img{ opacity:.9; -webkit-transition:opacity .35s; transition:opacity .35s;}
+	figure.effect-honey:hover img{ opacity:.5;}
+	.effect-honey figcaption:before{ position:absolute; bottom:0; left:0; content:''; height:10px; background-color:#fff; width:100%; -webkit-transform: translate3d(0,10px,0); transform:translate3d(0,10px,0);}
+	figure.effect-honey h2,.effect-honey figcaption:before{ -webkit-transition:-webkit-transform .3s; transition:transform .3s;}
+	figure.effect-honey h2{ position:absolute; bottom:0; left:0; padding:1em 1.5em; width:100%; text-align:left; -webkit-transform:translate3d(0,-30px,0); transform:translate3d(0,-30px,0);}
+	figure.effect-honey i{ font-style:normal; display:block; opacity:0; -webkit-transition:-webkit-transfrom .35s, opacity .35s; transition:opacity .35s, transform .35s; -webkit-transform:translate3d(0,-30px,0); transform:translate3d(0,-30px,0);}
+	figure.effect-honey:hover h2{ -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	/*effect-layla*/
+	figure.effect-layla{ background-color:#18a367;}
+	figure.effect-layla img{ min-width:100%; height:-webkit-calc(100% + 40px); height:calc(100% + 40px);}
+	figure.effect-layla img,figure.effect-layla h2{ -webkit-transform:translate3d(0,-30px,0); transform:translate3d(0,-30px,0);}
+	figure.effect-layla img,figure.effect-layla p,figure.effect-layla figcaption:before,figure.effect-layla figcaption:after{ -webkit-transition:opacity .35s, transform .35s; transition:opacity .35s, transform .35s;}
+	figure.effect-layla figcaption{ padding:3em;}
+	figure.effect-layla h2{ padding-top:26%; -webkit-transition:transform .35s; transition:transform .35s;}
+	figure.effect-layla figcaption:before,figure.effect-layla figcaption:after{ position:absolute; opacity:0; content:'';}
+	figure.effect-layla figcaption:before{ top:50px; right:30px; bottom:50px; left:30px; border-top:1px solid #fff; border-bottom:1px solid #fff; -webkit-transform:scale(0, 1); transform:scale(0, 1); -webkit-transform-origin:0 0; transform-origin:0 0;}
+	figure.effect-layla figcaption:after{ top:30px; right:50px; bottom:30px; left:50px; border-left:1px solid #fff; border-right:1px solid #fff; -webkit-transform:scale(1, 0); transform:scale(1, 0); -webkit-transform-origin:100% 0; transform-origin:100% 0;}
+	figure.effect-layla p{ padding:0.5em 2em; opacity:0; -webkit-transform:translate3d(0,-10px,0); transform:translate3d(0,-10px,0);}
+	figure.effect-layla:hover img{ opacity:0.7; -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	figure.effect-layla:hover h2,figure.effect-layla:hover p,figure.effect-layla:hover img,figure.effect-layla:hover figcaption:after{ -webkit-transition-delay:.15s; transition-delay:.15s;}
+	.effect-layla:hover figcaption:before,figure.effect-layla:hover figcaption:after{ opacity:1; -webkit-transform:scale(1); transform:scale(1);}
+	/*effect-zoe*/
+	figure.effect-zoe figcaption{ background-color:#fff; height:3.75em; top:auto; bottom:0; padding:1em; color:#3c4a50; -webkit-transition:transform .35s; transition:transform .35s; -webkit-transform:translate3d(0,100%,0);transform:translate3d(0,100%,0);}
+	figure.effect-zoe h2{ float:left; display:inline-block;}
+	figure.effect-zoe h2,figure.effect-zoe figcaption > span{ -webkit-transition:transform .35s; transition:transform .35s; -webkit-transform:translate3d(0,200%,0); transform:translate3d(0,200%,0);} 
+	figure.effect-zoe figcaption > span{ float:right;}
+	/* 导入字体图标 */
+	@font-face{
+		font-weight:normal; font-style:normal; font-family:'feathericons';
+		src:url('fonts/feathericons/feathericons.eot');/*ie9*/
+		src:url('fonts/feathericons/feathericons.eot?#iefix') format('embedded-opentype'),
+			url('fonts/feathericons/feathericons.woff') format('woff'),
+			url('fonts/feathericons/feathericons.ttf') format('truetype'),url('fonts/feathericons/feathericons.svg#feathericons') format('svg');
+		/*分别为：/* IE6-8 */ /* 现代浏览器 */ /*Safari, Android, iOS */ /*Legacy iOS*/
+	}
+	figure.effect-zoe figcaption > span::before{ display:inline-block; font-family:'feathericons'; padding:8px 10px; speak:none; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;/*解决字体图标出现锯齿的问题*/}
+	.icon-heart::before{ content:'\e024';}
+	.icon-eye::before{ content:'\e000';}
+	.icon-paper-clip::before{ content:'\e001';}
+	figure.effect-zoe p{ position:absolute; bottom:8em; padding:2em; color:#fff; font-size:90%; opacity:0; -webkit-transition:opacity .35s; transition:opacity .35s;}
+	figure.effect-zoe:hover figcaption,figure.effect-zoe:hover h2,figure.effect-zoe:hover figcaption > span{ -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	figure.effect-zoe:hover h2{ -webkit-transition-delay:.05s; transition-delay:.05s;}
+	figure.effect-zoe:hover figcaption > span:nth-child(2){ -webkit-transition-delay:.2s; transition-delay:.2s;/*匹配父元素下面的第二个子元素span*/}
+	figure.effect-zoe:hover figcaption > span:nth-child(3){ -webkit-transition-delay:.15s; transition-delay:.15s;/*匹配父元素下面的第3个子元素span*/}
+	figure.effect-zoe:hover figcaption > span:nth-child(4){ -webkit-transition-delay:.1s; transition-delay:.1s;/*匹配父元素下面的第4个子元素span*/}
+	figure.effect-zoe:hover p{ opacity:1;}
+	/*effect-oscar*/
+	figure.effect-oscar{ background:-webkit-linear-gradient(45deg, #22682a 0%, #9b4a1b 40%, #3a342a 100%); background:linear-gradient(45deg, #22682a 0%, #9b4a1b 40%, #3a342a 100%);}
+	figure.effect-oscar img{ opacity:.9; -webkit-transition:opacity .35s; transition:opacity .35s;}
+	figure.effect-oscar figcaption{ padding:3em; background-color:rgba(58,52,42,.7); -webkit-trasition:background-color .35s; transition:background-color .35s;}
+	figure.effect-oscar figcaption::before{ position:absolute; top:30px; right:30px; bottom:30px; left:30px; content:''; border:1px solid #fff;}
+	figure.effect-oscar figcaption::before,figure.effect-oscar p{ opacity:0; -webkit-transform:scale(0); transform:scale(0); -webkit-transition:opacoty .35s, -webkit-transform .35s; transition:opacity .35s, transform .35s;}
+	figure.effect-oscar h2{ margin:20% 0 10px; -webkit-transition:-webkit-transform .35s; transition:transform .35s; -webkit-transform:translate3d(0,100%,0); transform:translate3d(0,100%,0)}
+	figure.effect-oscar:hover img{opacity:0.4;}
+	figure.effect-oscar:hover figcaption{ background-color:rgba(58,52,42,0);}
+	figure.effect-oscar:hover h2{ -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	figure.effect-oscar:hover figcaption::before,figure.effect-oscar:hover p{-webkit-transform:scale(1); transform:scale(1); opacity:1;}
+	/*effect-ruby*/
+	figure.effect-marley figcaption{ text-align:right;}
+	figure.effect-marley h2,figure.effect-marley p{ position:absolute; left:30px; right:30px; padding:10px 0;}
+	figure.effect-marley h2{ top:30px; -webkit-transform:translate3d(0,20px,0); transform:translate3d(0,20px,0); -webkit-transition:-webkit-transform .35s; transition:transform .35s;}
+	figure.effect-marley h2::after{ content:''; position:absolute; top:100%; left:0; height:4px; width:100%; background-color:#fff; -webkit-transform:translate3d(0,40px,0); transform:translate3d(0,40px,0);}
+	figure.effect-marley h2::after,figure.effect-marley p{ opacity:0; -webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, transform .35s;}
+	figure.effect-marley p{ position:absolute; bottom:30px; line-height:1.5;  -webkit-transform:translate3d(0,100%,0); transform:translate3d(0,100%,0);}
+	figure.effect-marley:hover h2{ -webkit-transform:translate3d(0,0,0,); transform:translate3d(0,0,0);}
+	figure.effect-marley:hover h2::after,figure.effect-marley:hover p{ opacity:1; -webkit-transform:translate3d(0,0,0,); transform:translate3d(0,0,0);}
+	figure.effect-ruby{ background-color:#17819c;}
+	figure.effect-ruby img{ opacity:.7; -webkit-transform:scale(1.1);transform:scale(1.1); -webkit-transition:transform .35s; transition:transform .35s;}
+	figure.effect-ruby h2{ margin-top:20%; -webkit-transform:translate3d(0,20px,0); transform:translate3d(0,20px,0); -webkit-transition: -webkit-transform .35s; transition:transform .35s;}
+	figure.effect-ruby p{ margin:1em 0 0; border:1px solid #fff; opacity:0; padding:3em; -webkit-transform:translate3d(0,20px,0) scale(1.1); transform:translate3d(0,20px,0) scale(1.1); -webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, transform .35s;}
+	figure.effect-ruby:hover img{ opacity:.5; -webkit-transform:scale(1);transform:scale(1);}
+	figure.effect-ruby:hover h2{ -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	figure.effect-ruby:hover p{ opacity:1; -webkit-transform:translate3d(0,0,0) scale(1); transform:translate3d(0,0,0) scale(1);}
+	/*effect-roxy*/
+	figure.effect-roxy{ background:-webkit-linear-gradient(45deg, #ff89e9 0%, #05abb0 100%); background:linear-gradient(45deg, #ff89e9 0%, #05abb0 100%);}
+	figure.effect-roxy figcaption{ text-align:left; padding:3em;}
+	figure.effect-roxy img{ width:-webkit-calc(100% + 60px); width:calc(100% + 60px); -webkit-transform:translate3d(-50px,0,0); transform:translate3d(-50px,0,0); -webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, transform .35s;}
+	figure.effect-roxy figcaption::before{ position:absolute; top:30px; right:30px; bottom:30px; left:30px; content:''; border:1px solid #fff; opacity:0; -webkit-transform:translate3d(-20px,0,0); transform:translate3d(-20px,0,0); -webkit-transition:opacity .35s, transform .35s; transition:opacity .35s, transform .35s;}
+	figure.effect-roxy h2{padding:30% 0 10px;}
+	figure.effect-roxy p{ opacity:0; -webkit-transform:translate3d(-10px,0,0); transform:translate3d(-10px,0,0); -webkit-transition:opacity .35s, transform .35s; transition:oapcity .35s, transform .35s;}
+	figure.effect-roxy:hover img{ opacity:.7; -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	figure.effect-roxy:hover figcaption::before,figure.effect-roxy:hover p{ opacity:1; -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	/*effect-bubba*/
+	figure.effect-bubba{ background-color:#9e5406;}
+	figure.effect-bubba img{ opacity:.7; -webkit-transition:opacity .35s; transition:opacity .35s;}
+	figure.effect-bubba figcaption::before,figure.effect-bubba figcaption::after{position:absolute; top:30px; right:30px; bottom:30px; left:30px; opacity:0; -webkit-transition:opacity .35s, transform .35s; transition:opacity .35s, transform .35s;}
+	figure.effect-bubba figcaption::before{ border-top:1px solid #fff; border-bottom:1px solid #fff; content:''; -webkit-transform:scale(0,1); transform:scale(0,1);}
+	figure.effect-bubba figcaption::after{ border-left:1px solid #fff; border-right:1px solid #fff; content:''; -webkit-transform:scale(1,0); transform:scale(1,0);}
+	figure.effect-bubba h2{ padding-top:30%; -webkit-transform:translate3d(0,-20px,0); transform:translate3d(0,-20px,0); -webkit-transition:transform .35s; transition:transform .35s;}
+	figure.effect-bubba p{opacity:0; padding:20px 2.5em; -webkit-transform:translate3d(0,10px,0); transform:translate3d(0,10px,0); -webkit-transition:opacity .35s, transform .35s; transition:opacity .35s, transform .35s;}
+	figure.effect-bubba:hover img{ opacity:.5;}
+	figure.effect-bubba:hover figcaption::before,figure.effect-bubba:hover figcaption::after{ -webkit-transform:scale(1); transform:scale(1); opacity:1;}
+	figure.effect-bubba:hover h2,figure.effect-bubba:hover p{ -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	figure.effect-bubba:hover p{ opacity:1;}
+	/*effect-romeo*/
+	figure.effect-romeo{ -webkit-perspective:1000px; perspective:1000px;/*当为元素定义 perspective 属性时，其子元素会获得透视效果，而不是元素本身*/}
+	figure.effect-romeo img{ -webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, transform .35s; -webkit-transform:translate3d(0,0,300px); transform:translate3d(0,0,300px);}
+	figure.effect-romeo figcaption::before,figure.effect-romeo figcaption::after{ position:absolute; content:''; top:50%; left:50%; background-color:#fff; width:80%; height:1px; -webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, transform .35s; -webkit-transform:translate3d(-50%,-50%,0); transform:translate3d(-50%,-50%,0);}
+	figure.effect-romeo h2,figure.effect-romeo p{ position:absolute; top:50%; left:0; width:100%; -webkit-transition:-webkit-transform .35s; transition:transform .35s;}
+	figure.effect-romeo h2{ -webkit-transform:translate3d(0,-50%,0) translate3d(0,-150%,0);transform:translate3d(0,-50%,0) translate3d(0,-150%,0);}
+	figure.effect-romeo p{ padding:.25em 2em; -webkit-transform:translate3d(0,-50%,0) translate3d(0,150%,0);transform:translate3d(0,-50%,0) translate3d(0,150%,0);}
+	figure.effect-romeo:hover img{ opacity:.6; -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	figure.effect-romeo:hover h2{ -webkit-transform:translate3d(0,-50%,0) translate3d(0,-100%,0);transform:translate3d(0,-50%,0) translate3d(0,-100%,0);}
+	figure.effect-romeo:hover p{ -webkit-transform:translate3d(0,-50%,0) translate3d(0,100%,0);transform:translate3d(0,-50%,0) translate3d(0,100%,0);}
+	figure.effect-romeo:hover figcaption::before{ -webkit-transform:translate3d(-50%,-50%,0) rotate(45deg); transform:translate3d(-50%,-50%,0) rotate(45deg); opacity:.5;}
+	figure.effect-romeo:hover figcaption::after{ -webkit-transform:translate3d(-50%,-50%,0) rotate(-45deg); transform:translate3d(-50%,-50%,0) rotate(-45deg); opacity:.5;}
+	/*effect-dexter*/
+	figure.effect-dexter{ background-image:-webkit-linear-gradient(top, rgba(37,141,200,1) 0%, rgba(104,60,19,1) 100%); background-image:linear-gradient(top, rgba(37,141,200,1)  0%, rgba(104,60,19,1) 100%);}
+	figure.effect-dexter img{ -webkit-transition: opacity .35s; transition:opacity .35s;}
+	figure.effect-dexter figcaption{ padding:3em; text-align:left;}
+	figure.effect-dexter p{ position:absolute; left:60px; bottom:60px; right:60px; opacity:0; -webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, transform .35s; -webkit-transform:translate3d(0,-100px,0); transform:translate3d(0,-100px,0);}
+	figure.effect-dexter figcaption::after{ position:absolute; right:30px; left:30px; bottom:30px; height:-webkit-calc(50% - 30px); height:calc(50% - 30px); border:7px solid #fff; content:''; -webkit-transition:-webkit-transform .35s; transition:transform .35s; -webkit-transform:translate3d(0,-100%,0); transform:translate3d(0,-100%,0);}
+	figure.effect-dexter:hover img{ opacity:.4;}
+	figure.effect-dexter:hover p{ opacity:1; -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	figure.effect-dexter:hover figcaption::after{ -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	/*effect-sarah*/
+	figure.effect-sarah{ background-color:#42b078;}
+	figure.effect-sarah img{ -webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, -webkit-transform .35s; width:-webkit-calc(100% + 20px); width:calc(100% + 20px); -webkit-transform:translate3d(-10px,0,0); transform:translate3d(-10px,0,0); -webkit-backface-visibility:hidden; backface-visibility:hidden;}
+	figure.effect-sarah figcaption{ text-align:left;}
+	figure.effect-sarah h2{ position:relative; overflow:hidden; padding:.5em 0;}
+	figure.effect-sarah h2::after{ position:absolute; bottom:0; left:0; width:100%; height:3px; background-color:#fff; content:''; -webkit-transition:-webkit-transform .35s; transition:transform .35s; -webkit-transform:translate3d(-100%,0,0); transform:translate3d(-100%,0,0);}
+	figure.effect-sarah p{ padding:1em 0; opacity:0; -webkit-transition:opacity .35s, -webkit-transform; transition:opacity .35s, transform .35s; -webkit-transform:translate3d(100%,0,0); transform:translate3d(100%,0,0);}
+	figure.effect-sarah:hover img{ opacity:.4; -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	figure.effect-sarah:hover h2::after{ -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	figure.effect-sarah:hover p{ opacity:1; -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	/*effect-chico*/
+	figure.effect-chico img{ -webkit-transition:opacity .35s, -webkit-transform .35s;transition:opacity .35s, transform .35s; -webkit-transform:scale(1.12); transform:scale(1.12);}
+	figure.effect-chico figcaption::before{ position:absolute; top:30px; right:30px; bottom:30px; left:30px; border:1px solid #fff; content:''; -webkit-transform:scale(1.1); transfrom:scale(1.1);}
+	figure.effect-chico h2{ margin:20% 0 20px;}
+	figure.effect-chico p{ margin:0 auto; max-width:200px; -webkit-transform:scale(1.5); transform:scale(1.5);}
+	figure.effect-chico figcaption::before,figure.effect-chico p{ opacity:0; -webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, -webkit-transform .35s;}
+	figure.effect-chico:hover img{ opacity:.5; -webkit-transform:scale(1); transform:scale(1);}
+	figure.effect-chico:hover figcaption::before,figure.effect-chico:hover p{ opacity:1; -webkit-transform:scale(1); transform:scale(1);}
+	figure.effect-milo{ background-color:#2e5d5a;}
+	figure.effect-milo img{ -webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, -webkit-transform .35s; width:-webkit-calc(100% + 60px); width:calc(100% + 60px); opacity:1; -webkit-transform:translate3d(-30px,0,0) scale(1.1); transform:translate3d(-30px,0,0) scale(1.1); -webkit-backface-visibility:hidden; backface-visibility:hidden;}
+	figure.effect-milo h2{ position:absolute; bottom:0; right:0; padding:1em 1.2em;}
+	figure.effect-milo p{ text-align:right; width:50%; padding-right:10px; border-right:1px solid #fff; opacity:0; -webkit-transition:opacity .35s, -webkit-transform .35s; transition:opacity .35s, -webkit-transform .35s; -webkit-transform:translate3d(-40px,0,0); transform:translate3d(-40px,0,0);}
+	figure.effect-milo:hover img{ opacity:.5; -webkit-transform:translate3d(0,0,0) scale(1); transform:translate3d(0,0,0) scale(1);}
+	figure.effect-milo:hover p{ opacity:1; -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+
+	@media screen and (max-width:69.5em){
+		.grid figure {
+			width:50%;
+		}
+		.grad figure figcaption{
+			font-size:90%;
+		}
+	}
+	@media screen and (max-width: 25em) {
+		.codrops-header {
+			font-size:75%;
+		}
+	}
+	@media screen and (max-width: 41.5em) {
+		.grid figure {
+			width:100%;
+		}
+	}
+</style>
+</head>
+<body>
+    <header class="codrops-header">
+    	<h1>Hover 鼠标悬停效果
+			<span>by sunbf.net 2015-03-20</span>
+    	</h1>
+    </header>
+    <div class="grid">
+    	<figure class="effect-lily">
+    		<img src="img/1.jpg" alt="img01">
+    		<figcaption>
+    			<h2>nice<span>lily</span>
+    			</h2>
+    			<p>css3-hover效果一，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-sadie">
+    		<img src="img/2.jpg" alt="img02">
+    		<figcaption>
+    			<h2>holy<span>sadie</span></h2>
+    			<p>css3-hover效果2，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-honey">
+    		<img src="img/7.jpg" alt="img07">
+    		<figcaption>
+    			<h2>Dreamy<span>honey</span>
+    				<i>Now</i>
+    			</h2>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-layla">
+    		<img src="img/4.jpg" alt="img04">
+    		<figcaption>
+    			<h2>Crazy<span>layla</span>
+    			</h2>
+    			<p>css3-hover效果4，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-zoe">
+    		<img src="img/14.jpg" alt="img14">
+    		<figcaption>
+    			<h2>Creative<span>Zoe</span></h2>
+    			<span class="icon-heart"></span>
+    			<span class="icon-eye"></span>
+    			<span class="icon-paper-clip"></span>
+    			<p>css3-hover效果5，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-oscar">
+    		<img src="img/8.jpg" alt="img08">
+    		<figcaption>
+    			<h2>Warm<span>Oscar</span></h2>
+    			<p>css3-hover效果6，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-marley">
+    		<img src="img/9.jpg" alt="img09">
+    		<figcaption>
+    			<h2>Sweet<span>Marley</span></h2>
+    			<p>css3-hover效果7，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-ruby">
+    		<img src="img/10.jpg" alt="img10">
+    		<figcaption>
+    			<h2>Glowing<span>Ruby</span></h2>
+    			<p>css3-hover效果8，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-roxy">
+    		<img src="img/3.jpg" alt="img03">
+    		<figcaption>
+    			<h2>Charming <span>Roxy</span></h2>
+    			<p>css3-hover效果9，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-bubba">
+    		<img src="img/6.jpg" alt="img06">
+    		<figcaption>
+    			<h2>Fresh<span>Bubba</span></h2>
+    			<p>css3-hover效果10，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-romeo">
+    		<img src="img/5.jpg" alt="img05">
+    		<figcaption>
+    			<h2>Wild<span>Romeo</span></h2>
+    			<p>css3-hover效果11，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-dexter">
+    		<img src="img/12.jpg" alt="img12">
+    		<figcaption>
+    			<h2>Strange <span>Dexter</span></h2>
+    			<p>css3-hover效果12，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-sarah">
+    		<img src="img/13.jpg" alt="img13">
+    		<figcaption>
+    			<h2>Free<span>sarah</span></h2>
+    			<p>css3-hover效果13，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-chico">
+    		<img src="img/15.jpg" alt="img15">
+    		<figcaption>
+    			<h2>Silly<span>Chico</span></h2>
+    			<p>css3-hover效果14，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    	<figure class="effect-milo">
+    		<img src="img/11.jpg" alt="img11">
+    		<figcaption>
+    			<h2>Faithful <span>Milo</span></h2>
+    			<p>css3-hover效果15，是不是很酷啊！</p>
+    			<a href="http://sunbf.net/">更多</a>
+    		</figcaption>
+    	</figure>
+    </div>
+</body>
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+<script>
+(function(){
+	//判断浏览器
+	if($.browser.msie){
+		var browser = navigator.appName;
+		var b_version = navigator.appVersion;
+		var version = b_version.split(';');
+		var d_msie = $('<section class="msie"><p>主要为CSS3效果演示，请更换标准浏览器（chrome,firefox）或者使用ie9以上浏览器查看！</p></section>');
+		console.log('browser: ' + browser)
+		console.log('b_version: ' + b_version)
+		console.log('version: ' + version)
+
+		if(version.length > 1){
+			var trim_Version = parseInt(version[1].replace(/[ ]/g, '').replace(/MSIE/g, ''));
+			console.log('trim_Version: ' + trim_Version)
+			if(trim_Version < 9){
+				$('.grid').hide();
+				$('header').after(d_msie);
+				//return false;
+			}
+		}
+	}
+})();	
+</script>
+</html>
