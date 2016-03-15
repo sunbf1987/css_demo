@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>css3圆环倒计时</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<style type=text/css>
+	*{ margin:0; padding:0;}
+	.head{ line-height:100px; padding-left:20px;  background-color:#ccc; font-size:18px; color:#505050; font-family:Microsoft YaHei,'微软雅黑';}
+	.title{ text-shadow:1px 1px 3px #fff; font-weight:700; display:inline-block;}
+	.author{ display:inline-block; margin-left:20px; font-size:14px; text-shadow:0 0 1px #fff;}
+	.demo{ margin:100px;}
+	.hold{ width:200px; height:200px; position:absolute; z-index:1;}
+	.hold1{clip:rect(0, 200px, 200px, 100px);}
+	.hold2{clip:rect(0, 100px, 200px, 0);}
+	.torus{ height:200px; width:200px; border-radius:100px; background-color:blue; position:absolute;}
+	.torus1{clip:rect(0, 200px, 200px, 100px);}
+	.torus2{clip:rect(0, 100px, 200px, 0)}
+	.bg{ width:200px; height:200px; border-radius:100px; background-color:red; position:absolute;}
+	.time{ width:160px; height:160px; background-color:#fff; border-radius:100px; position:absolute; z-index:1; margin:20px 0 0 20px; line-height:160px; text-align:center; box-shadow:1px 1px 8px #333 inset; font-family:"Book Antiqua", Palatino, serif; font-size:35px; font-weight:700; text-shadow:1px 1px 3px #333;}
+	.time span:before{ content:''; position:absolute; top:62px; left:12px; height:18px; width:140px; background-color:rgba(255, 255, 255, .4)}
+	.list{ padding-top:250px; list-style:none; color:#505050; font-family:Microsoft YaHei,'微软雅黑'; line-height:30px;}
+	.msie{ color:#505050; font-family:Microsoft YaHei,'微软雅黑'; text-align:center; padding:50px; font-size:18px; display:none;}
+</style>
+</head>
+<body>
+	<header class="head">
+		<h1 class="title">css3圆环倒计时</h1>
+		<p class="author">by sunbf.net 2015.03.19</p>
+	</header>
+	<section class="msie">
+		<p>主要为CSS3效果演示，请更换标准浏览器（chrome,firefox）或者使用ie9以上浏览器查看！</p>
+	</section>
+    <section class="demo">
+    	<div class="hold hold1">
+    		<div class="torus torus1"></div>
+    	</div>
+    	<div class="hold hold2">
+    		<div class="torus torus2"></div>
+    	</div>
+    	<div class="bg"></div>
+    	<div class="time">
+    		<span>00:00:00</span>
+    	</div>
+    	<ul class="list">
+    		<li>Step1 普通的正方形</li>	
+    		<li>Step2 用"border-radius"实现圆形</li>	
+    		<li>Step3 用"clip:rect"遮罩为半圆</li>	
+    		<li>Step4 父级增加一层DIV</li>	
+    		<li>Step5 把父级DIV用"clip:rect"遮罩为一半</li>	
+    		<li>Step6 用"transform:rotate"连续改变扇形旋转角度</li>	
+    		<li>Step7 同理复制左半边扇形旋转</li>	
+    		<li>Step8 拼接两个扇形</li>	
+    		<li>Step9 控制两个扇形旋转时间相差30秒</li>	
+    		<li>Step10 去掉辅助背景，添加一个底衬背景</li>	
+    		<li>Step11 加入一个圆形覆盖在最上面，形成圆环形式</li>	
+    		<li>Step12 加入渐变、阴影等修饰，及倒计时数字</li>
+    	</ul>
+    </section>
+</body>
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+<script src="js/showTimer.js"></script>
+<script>
+// document.oncontextmenu=function(){
+// 		return false;
+// }
+$(function(){
+	//判断浏览器
+	if($.browser.msie){
+		var browser = navigator.appName;
+		var b_version = navigator.appVersion;
+		var version = b_version.split(';');
+		console.log('browser: ' + browser)
+		console.log('b_version: ' + b_version)
+		console.log('version: ' + version)
+
+		if(version.length > 1){
+			var trim_Version = parseInt(version[1].replace(/[ ]/g, '').replace(/MSIE/g, ''));
+			console.log('trim_Version: ' + trim_Version)
+			if(trim_Version < 9){
+				$('.demo').hide();
+				$('.msie').show();
+				return false;
+			}
+		}
+	}	
+
+    $('.demo').showTimer({
+        MM: 0, //从0开始，即0==1
+        box1: $('.demo').find('.hold1'),
+        box2: $('.demo').find('.hold2'),
+        time: $('.demo').find('.time span')
+    });
+});
+</script>
+</html>
