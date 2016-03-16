@@ -66,24 +66,24 @@
 <script>
 $(function(){
 	//判断浏览器
-	if($.browser.msie){
-		var browser = navigator.appName;
-		var b_version = navigator.appVersion;
-		var version = b_version.split(';');
-		console.log('browser: ' + browser)
-		console.log('b_version: ' + b_version)
-		console.log('version: ' + version)
+	// if($.browser.msie){
+	// 	var browser = navigator.appName;
+	// 	var b_version = navigator.appVersion;
+	// 	var version = b_version.split(';');
+	// 	console.log('browser: ' + browser)
+	// 	console.log('b_version: ' + b_version)
+	// 	console.log('version: ' + version)
 
-		if(version.length > 1){
-			var trim_Version = parseInt(version[1].replace(/[ ]/g, '').replace(/MSIE/g, ''));
-			console.log('trim_Version: ' + trim_Version)
-			if(trim_Version < 9){
-				$('.demo').hide();
-				$('.msie').show();
-				return false;
-			}
-		}
-	}	
+	// 	if(version.length > 1){
+	// 		var trim_Version = parseInt(version[1].replace(/[ ]/g, '').replace(/MSIE/g, ''));
+	// 		console.log('trim_Version: ' + trim_Version)
+	// 		if(trim_Version < 9){
+	// 			$('.demo').hide();
+	// 			$('.msie').show();
+	// 			return false;
+	// 		}
+	// 	}
+	// }	
 
     $('.demo').showTimer({
         MM: 0, //从0开始，即0==1
