@@ -15,3 +15,7 @@
 ###css3-switch全屏切换效果(css3-full-screen-switch)
 利用css3的一些相关属性制作完成的全屏切换效果同时兼容不支持css3的ie系列。
 [点击这里查看demo](http://sunbf1987.github.io/css_demo/css3-full-screen-switch/full_screen_switch.html "css3-全屏切换效果")
+
+###利用padding占位撑开图片(pics_ratio_zoom)
+利用css的padding占位撑开图片并实现图片等比例缩放。
+[点击这里查看demo](http://sunbf1987.github.io/css_demo/pics_ratio_zoom/padding_pics_ratio_zoom.html "利用padding占位撑开图片")
