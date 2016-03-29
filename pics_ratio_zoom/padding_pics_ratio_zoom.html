@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>padding占位</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style type="text/css">
+	*{ margin:0; padding:0;} 
+	html,body{ width:100%; height:100%; font-family:"微软雅黑";}
+	.demo{ max-width:1000px; position:relative; background-color:#ddd; margin:100px auto; text-align:center; overflow:hidden;}
+	.list{ position:relative; padding-bottom:56.25%;/*padding-bottom:H/W,图片的高除以宽*/}
+	.list li{ position:absolute; width:100%; overflow:hidden; top:0; left:0; z-index:1; opacity:0;}
+	.pics{ width:100%}
+	.pics img{ max-width:100%; height:auto; vertical-align:middle;}
+	.text{ position:absolute; top:0; left:0; width:100%; height:100%;}
+	.title{ margin-top:5%;/*margin-top:margin-top/W，上边距（50）px除以当前demo的宽度（1000px）*/ font-size:24px; color:#ea5504; font-weight:400;}
+	.txt{ margin-top:15px; font-size:30px; color:#fff; letter-spacing:0.05em; font-weight:400;}
+	.num{ position:absolute; left:0; bottom:0; z-index:9; width:100%; font-size:0;/*去除inline-block产生的间隙*/}
+	.num li{ display:inline-block; margin:15px;}
+	.num li a{ display:inline-block; width:10px; height:10px; background-color:#cdcdcd;}
+	.num li.cur a{ background-color:#ea5504;}
+</style>
+</head>
+<body>
+	<div class="demo">
+		<ul class="list">
+			<li>
+				<div class="pics">
+					<img src="http://tupian.enterdesk.com/2013/xll/012/26/3/1.jpg" alt="">
+				</div>
+				<div class="text">
+					<h2 class="title">产品说明1</h2>
+					<h3 class="txt">SFF-8639接口PCIE FLASH闪存现已问世</h3>
+				</div>
+			</li>
+			<li>
+				<div class="pics">
+					<img src="http://pic31.nipic.com/20130718/12834382_112335424179_2.jpg" alt="">
+				</div>
+				<div class="text">
+					<h2 class="title">产品说明2</h2>
+					<h3 class="txt">SFF-8639接口PCIE FLASH闪存现已问世</h3>
+				</div>
+			</li>
+		</ul>
+		<ul class="num">
+			<li class="cur"><a href="javascript:"></a></li>
+			<li><a href="javascript:"></a></li>
+		</ul>
+	</div>
+    <script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+    <script>
+    	var SlidePics = function($contWrap){
+    		this.$contWrap = $($contWrap);
+    		this.lists = this.$contWrap.find('.list li');
+    		this.nums = this.$contWrap.find('.num li');
+    		//init SlidePics Methods
+    		this.initSlidePics();
+    	};
+
+    	SlidePics.prototype = {
+    		initSlidePics: function(){
+    			this.initIalize();
+    			this.initPicsClick();
+
+    		},
+    		initIalize: function(){
+    			this.lists.eq(0).css({'z-index':'6','opacity':'1'});
+    			this.nums.eq(0).addClass('cur');
+    		},
+    		initPicsClick: function(){
+    			var _this = this;
+    			_this.nums.on('click', function(){
+    				var indexs = $(this).index();
+    				$(this).addClass('cur').siblings().removeClass('cur');
+    				_this.lists.eq(indexs).animate({opacity:'1'},600).css({'z-index':'6'}).siblings().animate({opacity:'0'},600).css({'z-index':'1'})
+    			})
+    		}
+    	};
+
+    	$(function(){
+    		var sp = new SlidePics($('.demo'))
+    	})
+    </script>
+</body>
+</html>
