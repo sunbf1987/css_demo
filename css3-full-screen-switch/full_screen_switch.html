@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>整屏切换</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style type="text/css">
+	*{ margin:0; padding:0;}
+	*:after,*:before{ -webkit-box-sizing:border-box; box-sizing:border-box;}
+	html,body{ height:100%; width:100%; overflow:hidden;}
+	@media screen and (max-width:767px){
+		.page h2{ font-size:70%;}
+	}
+	.wrapper{ position:absolute; top:0; left:0; width:100%; height:100%; -webkit-transition:-webkit-transform 1.5s; transition:transform 1.5s;}
+	.wrapper.active_p1{ -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	.wrapper.active_p2{ -webkit-transform:translate3d(0,-100%,0); transform:translate3d(0,-100%,0);}
+	.wrapper.active_p3{ -webkit-transform:translate3d(0,-200%,0); -ms-transform:translate3d(0,-200%,0);}
+	.wrapper.active_p4{ -webkit-transform:translate3d(0,-300%,0); transform:translate3d(0,-300%,0);}
+	.wrapper.active_p5{ -webkit-transform:translate3d(0,-400%,0); transform:translate3d(0,-400%,0);}
+	.page{ position:relative; width:100%; height:100%; color:#fff; font-family:Microsoft YaHei; -webkit-backface-visibility:hidden; backface-visibility:hidden;}
+	.page.p1{ background-color:#66a6b8; background-image:-webkit-linear-gradient(10deg, #66a6b8 20%, #5471b9 80%); background-image:linear-gradient(10deg, #66a6b8 20%, #5471b9 80%);}
+	.page h2{ font-size:3em; font-weight:400; position:absolute; top:50%; left:50%; -webkit-transform:translate3d(-50%,-50%,0); transform:translate3d(-50%,-50%,0);}
+	.page.p2{ background-color:#f29c54; background-image:-webkit-linear-gradient(45deg, #f29c54 0%, #db4367 100%); background-image:linear-gradient(45deg, #f29c54 0%, #db4367 100%);}
+	.page.p3{ background-color:#23af56; background-image:-webkit-linear-gradient(135deg, #23af56 0%, #67a79a 100%); background-image:linear-gradient(135deg, #23af56 0%, #67a79a 100%);}
+	.page.p4{ background-color:#412F2F; background-image:-webkit-linear-gradient(160deg, #6B2686 15%, #6B2686 100%); background-image:linear-gradient(160deg, #6B2686 15%, #6B2686 100%);}
+	.page.p5{ background-color:#FDDC9A; background-image:-webkit-linear-gradient(315deg, #FDDC9A 20%, #C9890F 100%); background-image:linear-gradient(315deg, #FDDC9A 20%, #C9890F 100%);}
+	.nav_panel{ position:fixed; top:50%; right:1em; -webkit-transform:translate3d(0,-50%,0); transform:translate3d(0,-50%,0); z-index:9; -webkit-transition:opacity .5s, -webkit-transform .5s;}
+	.scroll_btn{ position:absolute; left:0; width:1em; height:1em; border:0.2em solid #fff; border-left:0 none; border-bottom:0 none; -webkit-transform-origin:50%; transform-origin:50%; cursor:pointer; -webkit-transition:border-color .3s; transition:border-color .3s;}
+	.scroll_btn.up{ -webkit-transform:rotate(-45deg); transform:rotate(-45deg); top:-1.6em;}
+	.scroll_btn.down{ -webkit-transform:rotate(135deg); transform:rotate(135deg); bottom:-1.2em;}
+	.nav_panel ul{ list-style-type:none;}
+	.nav_panel li{ position:relative; overflow:hidden; width:1em; height:1em; margin-bottom:.5em; border:.12em solid #fff; border-radius:50%; cursor:pointer; -webkit-transition:border-color, -webkit-transform .3s; transition:border-color, transform .3s;}
+	.nav_panel li::after{ position:absolute; top:50%; left:50%; content:''; -webkit-transform:translate3d(-50%,-50%,0) scale(.3); transform:translate3d(-50%,-50%,0) scale(.3); width:100%; height:100%; border-radius:50%; background-color:#fff; opacity:0; -webkit-transition:opacity .3s, -webkit-transform; transition:opacity .3s, transform;}
+	.nav_panel .active::after,.nav_panel li:hover::after{ -webkit-transform:translate3d(-50%,-50%,0) scale(.7); transform:translate3d(-50%,-50%,0) scale(.7); opacity:1;}
+	.scroll_btn:hover{ border-color:yellow;}
+	.nav_panel li:hover{ border-color:yellow; -webkit-transform:scale(1.2); transform:scale(1.2);}
+	.nav_panel li:hover::after{ background-color:yellow;}
+</style>
+</head>
+<body>
+    <div class="wrapper active_p1">
+    	<div class="page p1">
+    		<h2>我是第一屏</h2>
+    	</div>
+    	<div class="page p2">
+    		<h2>我是第2屏</h2>
+    	</div>
+    	<div class="page p3">
+    		<h2>我是第3屏</h2>
+    	</div>
+    	<div class="page p4">
+    		<h2>我是第4屏</h2>
+    	</div>
+    	<div class="page p5">
+    		<h2>我是第5屏</h2>
+    	</div>
+    </div>
+    <div class="nav_panel">
+    	<div class="scroll_btn up"></div>
+    	<div class="scroll_btn down"></div>
+    	<nav>
+    		<ul>
+    			<li date-target="1" class="nav_btn nav_p1 active"></li>
+    			<li date-target="2" class="nav_btn nav_p2"></li>
+    			<li date-target="3" class="nav_btn nav_p3"></li>
+    			<li date-target="4" class="nav_btn nav_p4"></li>
+    			<li date-target="5" class="nav_btn nav_p5"></li>
+    		</ul>
+    	</nav>
+    </div>
+</body>
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+<script>
+;(function($){
+	'use strict'
+	var defaults = {
+		wrap:$('.wrapper'), //内容区域
+		navPanel : $('.nav_panel'), //控制区域
+		scrollBtn : $('.scroll_btn'), //上下翻页按钮
+		navBtn : $('.nav_btn'), //序号
+		pages : $('.page'), //滑屏dom
+		curPage : 1, //默认
+		callback: function(){} //回调
+	};
+	
+	$.fn.switchs = function(options){
+		return new MySwitch(this, options);
+	};
+
+	var MySwitch = function(element, options){
+		var me = this;
+		me.$el = $(element); //父容器
+		me._scroll = false;
+		me._isMSIE = false; //ie<9
+		//初始化
+		me.init(options);
+	};
+	//原型添加方法
+	MySwitch.prototype = {
+		init: function(options){
+			this.opts = $.extend({},defaults,options);
+			//滑屏总数
+			this._pagesLength = this.opts.pages.length;
+			//点击事件
+			this.clicks();
+		},
+			//控制当前class
+		manageClass:function(){
+			var _this = this;
+			_this.setRemoveClass();
+			_this.opts.wrap.addClass('active_p' + _this.opts.curPage);
+			_this.opts.navBtn.removeClass('active');
+			$('.nav_p' + _this.opts.curPage).addClass('active');
+			_this._scroll = true;
+			setTimeout(function(){
+				_this._scroll = false
+			},1000);
+		},
+			//
+		manageClass1:function(aCur,that){
+			var _this = this;
+			_this.setRemoveClass();
+			_this.opts.wrap.addClass('active_p' + aCur);
+			_this.opts.navBtn.removeClass('active');
+			that.addClass('active');
+			_this._scroll = true;
+			_this.opts.curPage = aCur;
+			setTimeout(function(){
+				_this._scroll = false
+			},1000);
+		},
+			//上一页
+		navigateUp:function(){
+			var _this = this;
+			if(_this.opts.curPage >	1){
+				_this.opts.curPage--;
+				if($.browser.msie){
+					_this.isMsie9up();
+					if(_this._isMSIE){
+						_this.manageClass();	
+					}else{
+						//$wrap.stop().animate({'top':'-' + ((curPage - 1) * 100) + '%'},1200);
+						_this.isIeApply(_this.opts.curPage)
+					}
+				}else{
+					_this.manageClass();
+				}
+			}
+		},
+			//下一页
+		navigateDown:function(){
+			var _this = this;
+			if(_this.opts.curPage < _this._pagesLength){
+				_this.opts.curPage++;
+				if($.browser.msie){
+					_this.isMsie9up();
+					if(_this._isMSIE){
+						_this.manageClass();	
+					}else{
+						_this.isIeApply(_this.opts.curPage)
+					}
+				}else{
+					_this.manageClass();
+				}
+			}
+		},
+			//ie适用
+		isIeApply:function(aCur){
+			var _this = this;
+			_this._scroll = true;
+			_this.opts.wrap.animate({'top':'-' + ((aCur - 1) * 100) + '%'}, 1000, function(){_this._scroll = false});
+			_this.opts.navBtn.removeClass('active');
+			$('.nav_p' + aCur).addClass('active');
+		},
+			//删除class
+		setRemoveClass:function(){
+			var _this = this;
+			_this.opts.wrap.removeClass(function(index, aClass){
+				return (aClass.match(/(^|\s)active_p\S+/g)||[]).join(' ');
+			});
+		},
+			//判断ie
+		isMsie9up:function(){
+			var _this = this;
+			//判断浏览器
+			var browser = navigator.appName;
+			var b_version = navigator.appVersion;
+			var version = b_version.split(';');
+
+			if(version.length >	1){
+				var trim_Version = parseInt(version[1].replace(/[ ]/g, '').replace(/MSIE/g, ''));
+				if(trim_Version > 9){
+				 	_this._isMSIE = true;
+				}
+			}
+		},
+		clicks:function(){
+			var _this = this;
+			//绑定鼠标滚轮事件
+			$(document).on('mousewheel DOMMouseScroll', function(e){ //'mousewheel for ie-webkit, DOMMouseScroll for firefox'
+				if(!_this._scroll){
+					if(e.originalEvent.wheelDelta >	0 || e.originalEvent.detail	< 0){
+						_this.navigateUp()
+					}else{
+						_this.navigateDown()
+					}
+				}
+				e.preventDefault();
+			});
+			//绑定上下按钮
+			$(document).on('click', '.scroll_btn', function(){
+				if($(this).hasClass('up')){
+					_this.navigateUp()
+				}else{
+					_this.navigateDown()
+				}
+			});
+			//绑定序号
+			$(document).on('click', '.nav_btn', function(){
+				if(!_this._scroll ){
+					var self = $(this);
+					var aTarget = $(this).attr('date-target');
+					if($.browser.msie){
+						_this.isMsie9up();
+						if(_this._isMSIE){
+							_this.manageClass1(aTarget,self)
+						}else{
+							_this.opts.curPage = aTarget;
+							_this.isIeApply(aTarget)
+						}
+					}else{
+						_this.manageClass1(aTarget,self)
+					}
+					
+				}
+			});
+		}
+	};
+})(window.jQuery || window.Zepto);
+
+//调用
+$('body').switchs();
+
+</script>
+</html>
