@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>worldMap</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<style type="text/css">
+	*{ margin:0; padding:0;}
+	body{ background-color:#000;}
+	.world{ width:300px; height:300px; position:relative; margin:50px auto; border-radius:50%; background:#0d4b92; overflow:hidden; background:radial-gradient(circle at 90% 2%, #1053A0 2%, #142A49 100%); -webkit-transform:translate3d(0,0,0); transform:translate3d(0,0,0);}
+	.map{ animation:turn 10s linear infinite; -webkit-animation:turn 10s linear infinite; -webkit-transform:translate3d(-176%,0,0); transform:translate3d(-176%,0,0);}
+	.map img{ height:300px;}
+	.world:after{ content:''; position:absolute; width:300px; height:300px; border-radius:50%; top:0; left:0; z-index:5; box-shadow:20px 2px 15px rgba(0,0,0,.4) inset,-5px 6px 30px rgba(0,0,0,.5) inset,40px 10px 46px rgba(0,0,0,.4) inset,40px 10px 60px rgba(0,0,0,.5) inset}
+
+	@keyframes turn{
+		0%{
+			 -webkit-transform:translate3d(-176%,0,0);
+			 transform:translate3d(-176%,0,0);
+		}
+		100%{
+			 -webkit-transform:translate3d(0%,0,0);
+			 transform:translate3d(0%,0,0);
+		}
+	}
+</style>
+</head>
+<body>
+    <div class="world">
+    	<div class="map">
+    		<img src="world-map.png" alt="世界地图">
+    	</div>
+    </div>
+</body>
+</html>
